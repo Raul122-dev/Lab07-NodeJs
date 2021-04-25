@@ -64,6 +64,19 @@ app.post('/api/persons', (request, response) => {
         error: 'content missing' 
       })
     }
+    if(body.number === "" || body.name === "") {
+        return response.status(406).json({ 
+            error: 'you must enter a value in the name and number ' 
+        })
+    }
+
+    for (let i = 0; i < persons.length; i++) {
+        if (body.name === persons[i].name) {
+            return response.status(406).json({ 
+                error: 'name must be unique' 
+            }) 
+        }
+    }
   
     const person = {
         id: generarID(),
